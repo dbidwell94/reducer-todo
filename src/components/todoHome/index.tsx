@@ -3,7 +3,15 @@ import styled from "styled-components";
 import { iColorProps } from "../../constants";
 import Form from "./Form";
 import ItemList from "./ItemList";
-import { addTodoItem, reducer, iRawTodoItem, iState, removeTodoItem, iTodoItem } from "../../constants";
+import {
+  addTodoItem,
+  reducer,
+  iRawTodoItem,
+  iState,
+  removeTodoItem,
+  iTodoItem,
+  toggleCompleted,
+} from "../../constants";
 
 type iHomeProps = iColorProps & {};
 
@@ -21,17 +29,24 @@ const initialState: iState = {
 export default function Home(props: iHomeProps) {
   const [state, dispatch] = useReducer(reducer, initialState);
 
-  function addItem(item: iRawTodoItem, callBack?: Function) {
+  function addItem(item: iRawTodoItem, cb?: Function) {
     dispatch(addTodoItem(item));
-    if (callBack) {
-      callBack();
+    if (cb) {
+      cb();
     }
   }
 
-  function removeItem(item: iTodoItem, callback?: Function){
+  function removeItem(item: iTodoItem, cb?: Function) {
     dispatch(removeTodoItem(item));
-    if(callback){
-        callback();
+    if (cb) {
+      cb();
+    }
+  }
+
+  function toggleItem(item: iTodoItem, cb?: Function) {
+    dispatch(toggleCompleted(item));
+    if (cb) {
+      cb();
     }
   }
 
