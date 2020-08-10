@@ -11,6 +11,7 @@ import {
   removeTodoItem,
   iTodoItem,
   toggleCompleted,
+  removeFinished,
 } from "../../constants";
 
 type iHomeProps = iColorProps & {};
@@ -50,10 +51,21 @@ export default function Home(props: iHomeProps) {
     }
   }
 
+  function removeCompleted(cb?: Function) {
+    dispatch(removeFinished());
+    if (cb) {
+      cb();
+    }
+  }
+
   return (
     <React.Fragment>
-      <Form onSubmit={addItem} />
-      <ItemList itemList={state.todoItems} removeItem={removeItem} toggleItem={toggleItem}/>
+      <Form onSubmit={addItem} removeCompleted={removeCompleted}/>
+      <ItemList
+        itemList={state.todoItems}
+        removeItem={removeItem}
+        toggleItem={toggleItem}
+      />
     </React.Fragment>
   );
 }

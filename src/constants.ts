@@ -18,7 +18,11 @@ export type iState = {
 };
 
 type iAction = {
-  type: "ADD_NEW_TODO_ITEM" | "REMOVE_TODO_ITEM" | "TOGGLE_COMPLETED";
+  type:
+    | "ADD_NEW_TODO_ITEM"
+    | "REMOVE_TODO_ITEM"
+    | "TOGGLE_COMPLETED"
+    | "REMOVE_FINISHED";
   payload: iTodoItem | string | number | boolean | null | undefined;
 };
 
@@ -54,6 +58,13 @@ export function toggleCompleted(item: iTodoItem): iAction {
   };
 }
 
+export function removeFinished(): iAction {
+  return {
+    payload: null,
+    type: "REMOVE_FINISHED",
+  };
+}
+
 export function reducer(state: iState, action: iAction): iState {
   switch (action.type) {
     case "ADD_NEW_TODO_ITEM":
@@ -77,6 +88,13 @@ export function reducer(state: iState, action: iAction): iState {
           if (item.key === logicObj.key) {
             return { ...item, isCompleted: !item.isCompleted };
           } else return item;
+        }),
+      };
+    case "REMOVE_FINISHED":
+      return {
+        ...state,
+        todoItems: state.todoItems.filter((item) => {
+          return !item.isCompleted;
         }),
       };
     default:

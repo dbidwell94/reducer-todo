@@ -6,8 +6,13 @@ type submitFunc = {
   (item: iRawTodoItem, callBack?: Function): void;
 };
 
+type iRemoveCompletedFunc = {
+  (cb?: Function): void;
+};
+
 type iFormProps = iColorProps & {
   onSubmit: submitFunc;
+  removeCompleted: iRemoveCompletedFunc;
 };
 
 const Container = styled.form<iColorProps>`
@@ -33,7 +38,12 @@ const Container = styled.form<iColorProps>`
     text-align: center;
   }
   button {
-    grid-column: 1 / span 2;
+    &:nth-of-type(1) {
+      grid-column: 1;
+    }
+    &:nth-of-type(2) {
+      grid-column: 2;
+    }
   }
 `;
 
@@ -50,6 +60,8 @@ export default function Form(props: iFormProps) {
     setValues({ ...values, [name]: value });
   }
 
+  const { removeCompleted } = props;
+
   function onSubmit(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault();
     const rawItem: iRawTodoItem = {
@@ -59,6 +71,11 @@ export default function Form(props: iFormProps) {
     props.onSubmit(rawItem, () => {
       setValues(initialFormValues);
     });
+  }
+
+  function handleCompleted(e: React.FormEvent<HTMLButtonElement>) {
+    e.preventDefault();
+    removeCompleted();
   }
 
   return (
@@ -74,6 +91,7 @@ export default function Form(props: iFormProps) {
         onChange={onChange}
       />
       <button type="submit">Submit</button>
+      <button onClick={handleCompleted}>Remove Completed</button>
     </Container>
   );
 }
