@@ -19,7 +19,7 @@ const Container = styled.nav<iColorProps>`
   position: fixed;
   top: 0;
   left: 0;
-  padding: 0rem 2rem;
+  padding: 0rem 50rem;
   .title {
     display: flex;
     flex-direction: row;
