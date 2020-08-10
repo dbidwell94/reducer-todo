@@ -47,6 +47,13 @@ export function removeTodoItem(item: iTodoItem): iAction {
   };
 }
 
+export function toggleCompleted(item: iTodoItem): iAction {
+  return {
+    payload: item,
+    type: "TOGGLE_COMPLETED",
+  };
+}
+
 export function reducer(state: iState, action: iAction): iState {
   switch (action.type) {
     case "ADD_NEW_TODO_ITEM":
