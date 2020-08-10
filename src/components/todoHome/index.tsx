@@ -53,7 +53,7 @@ export default function Home(props: iHomeProps) {
   return (
     <React.Fragment>
       <Form onSubmit={addItem} />
-      <ItemList itemList={state.todoItems} removeItem={removeItem} />
+      <ItemList itemList={state.todoItems} removeItem={removeItem} toggleItem={toggleItem}/>
     </React.Fragment>
   );
 }

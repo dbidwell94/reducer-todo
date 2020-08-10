@@ -2,13 +2,14 @@ import React, { MouseEvent } from "react";
 import styled from "styled-components";
 import { iTodoItem, iColorProps } from "../../constants";
 
-type iRemoveItemFunction = {
+type iItemFunction = {
   (item: iTodoItem, callback?: Function): void;
 };
 
 type iTodoItemProps = iColorProps & {
   todoItem: iTodoItem;
-  removeItem: iRemoveItemFunction;
+  removeItem: iItemFunction;
+  toggleItem: iItemFunction;
 };
 
 const Container = styled.section<iColorProps>`
@@ -53,16 +54,22 @@ const Container = styled.section<iColorProps>`
       cursor: pointer;
     }
   }
+  button {
+    margin-top: 1.5rem;
+  }
 `;
 
 export default function TodoItem(props: iTodoItemProps) {
-  const { todoItem, background, fontColor, removeItem } = props;
+  const { todoItem, background, fontColor, removeItem, toggleItem } = props;
 
   function removeItemHandler(e: MouseEvent) {
     e.preventDefault();
-    removeItem(todoItem, () => {
-        console.log("Fired");
-    });
+    removeItem(todoItem);
+  }
+
+  function handleCompleted(e: MouseEvent) {
+    e.preventDefault();
+    toggleItem(todoItem);
   }
 
   return (
@@ -70,8 +77,11 @@ export default function TodoItem(props: iTodoItemProps) {
       <div className="toggle" onClick={removeItemHandler} />
       <h2>{todoItem.title}</h2>
       <div className="content">
-        <p>Due date: {todoItem.date}</p>
+        <p>Due date: {todoItem.date ? todoItem.date : "Never"}</p>
       </div>
+      <button onClick={handleCompleted}>
+        {!todoItem.isCompleted ? "Set Completed" : "Just Kidding"}
+      </button>
     </Container>
   );
 }
