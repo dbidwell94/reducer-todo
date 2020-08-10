@@ -1,4 +1,11 @@
 import React from "react";
 import { render } from "react-dom";
+import App from "./components/app";
+import { BrowserRouter as Router } from "react-router-dom";
 
-render(<h1>Hello World</h1>, document.querySelector("#root"));
+render(
+  <Router>
+    <App />
+  </Router>,
+  document.querySelector("#root")
+);
