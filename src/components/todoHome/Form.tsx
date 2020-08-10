@@ -28,7 +28,8 @@ const Container = styled.form<iColorProps>`
     height: auto;
   }
   input,
-  select {
+  select,
+  textarea {
     grid-column: 2;
     display: flex;
     justify-content: center;
@@ -36,6 +37,11 @@ const Container = styled.form<iColorProps>`
     width: 100%;
     height: auto;
     text-align: center;
+  }
+  textarea{
+      width: 45rem;
+      height: 6rem;
+      text-align: left;
   }
   button {
     &:nth-of-type(1) {

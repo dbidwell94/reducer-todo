@@ -17,7 +17,7 @@ const Container = styled.section<iColorProps>`
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  margin: 0rem 2rem;
+  margin: 0rem 2rem 4rem 2rem;
   padding: 2rem;
   color: ${(props) => (props.fontColor ? props.fontColor : "black")};
   background: ${(props) =>
