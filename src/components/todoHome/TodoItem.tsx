@@ -1,9 +1,14 @@
-import React from "react";
+import React, { MouseEvent } from "react";
 import styled from "styled-components";
 import { iTodoItem, iColorProps } from "../../constants";
 
+type iRemoveItemFunction = {
+  (item: iTodoItem, callback?: Function): void;
+};
+
 type iTodoItemProps = iColorProps & {
   todoItem: iTodoItem;
+  removeItem: iRemoveItemFunction;
 };
 
 const Container = styled.section<iColorProps>`
@@ -19,19 +24,50 @@ const Container = styled.section<iColorProps>`
   box-shadow: 0rem 0rem 0.125rem 0rem black;
   border-radius: 1.25rem;
   position: relative;
-  div.toggle{
+  div.toggle {
     position: absolute;
-    left: 100%;
+    left: calc(100% - 2rem);
     top: 0;
+    width: 2rem;
+    height: 2rem;
+    background: transparent;
+    &:before {
+      position: absolute;
+      left: 0;
+      top: 50%;
+      content: "";
+      border-top: thin solid red;
+      transform: rotate(45deg);
+      width: 100%;
+    }
+    &:after {
+      position: absolute;
+      left: 0;
+      top: 50%;
+      content: "";
+      border-top: thin solid red;
+      transform: rotate(-45deg);
+      width: 100%;
+    }
+    &:hover {
+      cursor: pointer;
+    }
   }
 `;
 
 export default function TodoItem(props: iTodoItemProps) {
-  const { todoItem, background, fontColor } = props;
+  const { todoItem, background, fontColor, removeItem } = props;
+
+  function removeItemHandler(e: MouseEvent) {
+    e.preventDefault();
+    removeItem(todoItem, () => {
+        console.log("Fired");
+    });
+  }
 
   return (
     <Container background={background} fontColor={fontColor}>
-      <div className="toggle" />
+      <div className="toggle" onClick={removeItemHandler} />
       <h2>{todoItem.title}</h2>
       <div className="content">
         <p>Due date: {todoItem.date}</p>

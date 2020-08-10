@@ -40,6 +40,13 @@ export function addTodoItem(item: iRawTodoItem): iAction {
   };
 }
 
+export function removeTodoItem(item: iTodoItem): iAction {
+  return {
+    payload: item,
+    type: "REMOVE_TODO_ITEM",
+  };
+}
+
 export function reducer(state: iState, action: iAction): iState {
   switch (action.type) {
     case "ADD_NEW_TODO_ITEM":
@@ -48,7 +55,13 @@ export function reducer(state: iState, action: iAction): iState {
         todoItems: [action.payload as iTodoItem, ...state.todoItems],
       };
     case "REMOVE_TODO_ITEM":
-      return state;
+      const deletedObj: iTodoItem = action.payload as iTodoItem;
+      return {
+        ...state,
+        todoItems: state.todoItems.filter((item) => {
+          return item.key !== deletedObj.key;
+        }),
+      };
     case "TOGGLE_COMPLETED":
       const logicObj: iTodoItem = action.payload as iTodoItem;
       return {

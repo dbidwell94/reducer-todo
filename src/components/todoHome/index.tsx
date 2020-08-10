@@ -3,7 +3,7 @@ import styled from "styled-components";
 import { iColorProps } from "../../constants";
 import Form from "./Form";
 import ItemList from "./ItemList";
-import { addTodoItem, reducer, iRawTodoItem, iState } from "../../constants";
+import { addTodoItem, reducer, iRawTodoItem, iState, removeTodoItem, iTodoItem } from "../../constants";
 
 type iHomeProps = iColorProps & {};
 
@@ -28,10 +28,17 @@ export default function Home(props: iHomeProps) {
     }
   }
 
+  function removeItem(item: iTodoItem, callback?: Function){
+    dispatch(removeTodoItem(item));
+    if(callback){
+        callback();
+    }
+  }
+
   return (
     <React.Fragment>
       <Form onSubmit={addItem} />
-      <ItemList itemList={state.todoItems} />
+      <ItemList itemList={state.todoItems} removeItem={removeItem} />
     </React.Fragment>
   );
 }
