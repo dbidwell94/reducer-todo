@@ -25,6 +25,8 @@ const Container = styled.section<iColorProps>`
   box-shadow: 0rem 0rem 0.125rem 0rem black;
   border-radius: 1.25rem;
   position: relative;
+  max-width: 25%;
+  text-align: center;
   div.toggle {
     position: absolute;
     left: calc(100% - 2rem);

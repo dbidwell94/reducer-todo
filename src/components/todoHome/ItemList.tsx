@@ -20,6 +20,7 @@ const Container = styled.div<iColorProps>`
   align-items: center;
   flex-wrap: wrap;
   margin-top: 2rem;
+  width: 100%;
 `;
 
 export default function TodoList(props: iTodoList) {

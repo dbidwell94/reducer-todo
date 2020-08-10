@@ -55,7 +55,11 @@ const initialFormValues = {
 export default function Form(props: iFormProps) {
   const [values, setValues] = useState(initialFormValues);
 
-  function onChange(e: React.ChangeEvent<HTMLInputElement>) {
+  function onChange(
+    e:
+      | React.ChangeEvent<HTMLInputElement>
+      | React.ChangeEvent<HTMLTextAreaElement>
+  ) {
     const { name, value } = e.target;
     setValues({ ...values, [name]: value });
   }
@@ -81,7 +85,12 @@ export default function Form(props: iFormProps) {
   return (
     <Container onSubmit={onSubmit}>
       <label htmlFor="newItem">New Item</label>
-      <input id="newItem" name="item" value={values.item} onChange={onChange} />
+      <textarea
+        id="newItem"
+        name="item"
+        value={values.item}
+        onChange={onChange}
+      />
       <label htmlFor="dateDue">Due Date</label>
       <input
         type="date"
