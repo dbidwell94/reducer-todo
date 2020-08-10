@@ -3,7 +3,7 @@ import styled from "styled-components";
 import { iColorProps, iRawTodoItem } from "../../constants";
 
 type submitFunc = {
-  (item: iRawTodoItem): void;
+  (item: iRawTodoItem, callBack?: Function): void;
 };
 
 type iFormProps = iColorProps & {
@@ -56,7 +56,9 @@ export default function Form(props: iFormProps) {
       date: values.date,
       title: values.item,
     };
-    props.onSubmit(rawItem);
+    props.onSubmit(rawItem, () => {
+      setValues(initialFormValues);
+    });
   }
 
   return (

@@ -13,8 +13,11 @@ const initialState: iState = {
 export default function Home(props: iHomeProps) {
   const [state, dispatch] = useReducer(reducer, initialState);
 
-  function addItem(item: iRawTodoItem) {
+  function addItem(item: iRawTodoItem, callBack?:Function) {
     dispatch(addTodoItem(item));
+    if(callBack){
+        callBack();
+    }
   }
 
   return <Form onSubmit={addItem}/>;
