@@ -6,7 +6,7 @@ export type iColorProps = {
   background?: string;
 };
 
-type iTodoItem = {
+export type iTodoItem = {
   title: string;
   date: string;
   isCompleted: boolean;
@@ -18,7 +18,7 @@ export type iState = {
 };
 
 type iAction = {
-  type: "ADD_NEW_TODO_ITEM" | "REMOVE_TODO_ITEM";
+  type: "ADD_NEW_TODO_ITEM" | "REMOVE_TODO_ITEM" | "TOGGLE_COMPLETED";
   payload: iTodoItem | string | number | boolean | null | undefined;
 };
 
@@ -49,6 +49,16 @@ export function reducer(state: iState, action: iAction): iState {
       };
     case "REMOVE_TODO_ITEM":
       return state;
+    case "TOGGLE_COMPLETED":
+      const logicObj: iTodoItem = action.payload as iTodoItem;
+      return {
+        ...state,
+        todoItems: state.todoItems.map((item) => {
+          if (item.key === logicObj.key) {
+            return { ...item, isCompleted: !item.isCompleted };
+          } else return item;
+        }),
+      };
     default:
       return state;
   }
